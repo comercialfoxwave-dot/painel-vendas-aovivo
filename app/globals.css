@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-background: #0A0A0A;
+  --color-surface: #141414;
+  --color-border: #1F1F1F;
+  --color-border-light: #2A2A2A;
+
+  --color-primary: #00FF87;
+  --color-primary-hover: #00E876;
+  --color-primary-muted: rgba(0,255,135,0.1);
+  --color-primary-border: rgba(0,255,135,0.2);
+
+  --color-accent: #FF5A00;
+  --color-accent-hover: #E65000;
+  --color-accent-muted: rgba(255,90,0,0.1);
+
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #A0A0A0;
+  --color-text-muted: #606060;
+
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Container sizes — explicit so max-w-* utilities work in Tailwind v4 */
+  --container-xs:  20rem;
+  --container-sm:  24rem;
+  --container-md:  28rem;
+  --container-lg:  32rem;
+  --container-xl:  36rem;
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+  --container-4xl: 56rem;
+  --container-5xl: 64rem;
+  --container-6xl: 72rem;
+  --container-7xl: 80rem;
+}
+
+/* Keyframes — must be at root level, not inside @theme */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+/* ── Safety-net: explicit max-w overrides in case Tailwind v4 var resolution
+      fails in any build environment ──────────────────────────────────────── */
+.max-w-xs  { max-width: 20rem; }
+.max-w-sm  { max-width: 24rem; }
+.max-w-md  { max-width: 28rem; }
+.max-w-lg  { max-width: 32rem; }
+.max-w-xl  { max-width: 36rem; }
+.max-w-2xl { max-width: 42rem; }
+.max-w-3xl { max-width: 48rem; }
+.max-w-4xl { max-width: 56rem; }
+.max-w-5xl { max-width: 64rem; }
+.max-w-6xl { max-width: 72rem; }
+.max-w-7xl { max-width: 80rem; }
+
+/* mx-auto explicit (belt-and-suspenders) */
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: #0A0A0A;
+  color: #FFFFFF;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #00FF87; }
+
+::selection {
+  background: rgba(0, 255, 135, 0.2);
+  color: #00FF87;
+}
+
+.text-gradient-green {
+  background: linear-gradient(135deg, #00FF87 0%, #00C96A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.glow-green    { box-shadow: 0 0 30px rgba(0, 255, 135, 0.3); }
+.glow-green-sm { box-shadow: 0 0 15px rgba(0, 255, 135, 0.15); }
+.neon-text     { color: #00FF87; text-shadow: 0 0 10px rgba(0,255,135,0.5), 0 0 20px rgba(0,255,135,0.3); }
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(0,255,135,0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.border-gradient {
+  border: 1px solid transparent;
+  background: linear-gradient(#141414, #141414) padding-box,
+              linear-gradient(135deg, rgba(0,255,135,0.4), transparent) border-box;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(0,255,135,0.2); }
+  50%       { box-shadow: 0 0 28px rgba(0,255,135,0.45), 0 0 60px rgba(0,255,135,0.1); }
+}
+@keyframes scan {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(400%); }
+}
+@keyframes border-spin {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes count-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.card-premium {
+  background: #0D0D0D;
+  border: 1px solid #1A1A1A;
+  border-radius: 20px;
+  transition: border-color 0.2s, box-shadow 0.3s, transform 0.2s;
+}
+.card-premium:hover {
+  border-color: rgba(0,255,135,0.15);
+  box-shadow: 0 0 0 1px rgba(0,255,135,0.05), 0 8px 32px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+}
+.glow-pulse { animation: glow-pulse 2.5s ease-in-out infinite; }
+.stat-glow  { text-shadow: 0 0 20px rgba(0,255,135,0.4); }
+.scan-line  {
+  position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,255,135,0.4), transparent);
+  animation: scan 3s linear infinite;
+}
+.animated-border-card {
+  position: relative;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(-45deg, #00FF87, #1A1A1A, #FF5A00, #1A1A1A);
+  background-size: 400% 400%;
+  animation: border-spin 4s ease infinite;
+}
+.animated-border-card > div {
+  border-radius: 19px;
+  background: #0D0D0D;
+}
