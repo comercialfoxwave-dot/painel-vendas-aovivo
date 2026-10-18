@@ -310,17 +310,17 @@ export default function MercadoLivreLiveDashboard() {
           {/* Right menu navigation */}
           <div className="flex items-center gap-4 sm:gap-6 text-[13.5px] text-gray-800 font-medium">
             
-            {/* User profile: Vitor Carvalho */}
+            {/* User profile: Samuel Morinni Alencar */}
             <div className="flex items-center gap-2 cursor-pointer hover:opacity-85 transition-opacity">
               <div className="w-7 h-7 rounded-full overflow-hidden border border-black/15 bg-white flex items-center justify-center shadow-xs">
                 <img 
                   src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" 
-                  alt="Vitor Carvalho" 
+                  alt="Samuel Morinni Alencar" 
                   className="w-full h-full object-cover"
                 />
               </div>
               <span className="text-gray-900 font-semibold flex items-center gap-1">
-                Vitor Carvalho
+                Samuel Morinni Alencar
                 <ChevronDown className="w-3.5 h-3.5 text-gray-700" />
               </span>
             </div>
