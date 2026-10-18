@@ -23,7 +23,7 @@ export default function MercadoLivreLiveDashboard() {
   const [liveTime, setLiveTime] = useState("");
   const [privacyMode, setPrivacyMode] = useState(false);
   
-  // Period toggle: "hoje" (17 de outubro) or "ontem" (16 de outubro)
+  // Period toggle: "hoje" (18 de outubro) or "ontem" (17 de outubro)
   const [selectedPeriod, setSelectedPeriod] = useState<"hoje" | "ontem">("hoje");
 
   // Interactive chart hover states
@@ -37,9 +37,9 @@ export default function MercadoLivreLiveDashboard() {
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
-  // Exact dates as requested: Hoje = 17 de outubro | Ontem = 16 de outubro
-  const hojeDateLabel = "17 de outubro";
-  const ontemDateLabel = "16 de outubro";
+  // Exact dates: Hoje = 18 de outubro | Ontem = 17 de outubro
+  const hojeDateLabel = "18 de outubro";
+  const ontemDateLabel = "17 de outubro";
 
   // Live ticking clock
   useEffect(() => {
@@ -69,147 +69,147 @@ export default function MercadoLivreLiveDashboard() {
   }, []);
 
   // 24h Data series:
-  // Ontem (16 de outubro): R$ 2.376,97
-  // Hoje (17 de outubro): Live high performance day reaching R$ 8.348,87
+  // Ontem (17 de outubro): High performance day, total R$ 8.348,87
+  // Hoje (18 de outubro): Day in initial hours (00h - 02h), total R$ 690,32
   const hourlyData = useMemo(() => [
-    { hour: "00:00", label: "00h", ontem: 1620.00, hoje: 649.74 },
-    { hour: "01:00", label: "01h", ontem: 1580.00, hoje: 980.00 },
-    { hour: "02:00", label: "02h", ontem: 1510.50, hoje: 1162.87 },
-    { hour: "04:00", label: "04h", ontem: 1480.00, hoje: 1490.00 },
-    { hour: "06:00", label: "06h", ontem: 1720.00, hoje: 2150.00 },
-    { hour: "08:00", label: "08h", ontem: 1980.00, hoje: 3180.40 },
-    { hour: "10:00", label: "10h", ontem: 2140.00, hoje: 4290.00 },
-    { hour: "12:00", label: "12h", ontem: 2080.50, hoje: 5340.50 },
-    { hour: "14:00", label: "14h", ontem: 2190.00, hoje: 6190.00 },
-    { hour: "16:00", label: "16h", ontem: 2376.97, hoje: 6980.20 },
-    { hour: "18:00", label: "18h", ontem: 2290.00, hoje: 7540.00 },
-    { hour: "20:00", label: "20h", ontem: 2180.50, hoje: 7990.50 },
-    { hour: "22:00", label: "22h", ontem: 2040.00, hoje: 8348.87 },
-    { hour: "24:00", label: "24h", ontem: 1980.00, hoje: 8348.87 },
+    { hour: "00:00", label: "00h", ontem: 4820.00, hoje: 690.32 },
+    { hour: "01:00", label: "01h", ontem: 4680.00, hoje: 690.32 },
+    { hour: "02:00", label: "02h", ontem: 4510.50, hoje: 690.32 },
+    { hour: "04:00", label: "04h", ontem: 4390.00, hoje: null },
+    { hour: "06:00", label: "06h", ontem: 5120.00, hoje: null },
+    { hour: "08:00", label: "08h", ontem: 5980.00, hoje: null },
+    { hour: "10:00", label: "10h", ontem: 6740.00, hoje: null },
+    { hour: "12:00", label: "12h", ontem: 6580.50, hoje: null },
+    { hour: "14:00", label: "14h", ontem: 7390.00, hoje: null },
+    { hour: "16:00", label: "16h", ontem: 8348.87, hoje: null }, // Peak yesterday: R$ 8.348,87
+    { hour: "18:00", label: "18h", ontem: 7890.00, hoje: null },
+    { hour: "20:00", label: "20h", ontem: 7480.50, hoje: null },
+    { hour: "22:00", label: "22h", ontem: 7140.00, hoje: null },
+    { hour: "24:00", label: "24h", ontem: 6980.00, hoje: null },
   ], []);
 
   const isOntem = selectedPeriod === "ontem";
 
   // Values according to selected period
-  const currentHeroValue = isOntem ? "R$ 2.376,97" : "R$ 8.348,87";
+  const currentHeroValue = isOntem ? "R$ 8.348,87" : "R$ 690,32";
   const currentHeroTitle = isOntem ? "Vendas de ontem (consolidado)" : "Vendas de hoje ao vivo";
   const currentDateDisplay = isOntem 
     ? `${ontemDateLabel}, 23 : 59 : 59` 
-    : `${hojeDateLabel}, ${liveTime || "23 : 40 : 12"}`;
+    : `${hojeDateLabel}, ${liveTime || "02 : 01 : 45"}`;
 
   // Metrics:
-  // Hoje (17/out): 18 vendas = R$ 8.348,87 (preço médio R$ 463,83)
-  // Ontem (16/out): 12 vendas = R$ 2.376,97 (preço médio R$ 198,08)
+  // Hoje (18/out): 2 vendas = R$ 690,32 (preço médio R$ 345,16)
+  // Ontem (17/out): 18 vendas = R$ 8.348,87 (preço médio R$ 463,83)
   const currentMetrics = useMemo(() => {
     if (isOntem) {
       return {
-        visitas: "1.640",
-        compradores: "12",
-        vendas: "12",
-        conversao: "2,4%",
-        unidades: "12",
-        precoMedio: "R$ 198,08",
+        visitas: "2.450",
+        compradores: "18",
+        vendas: "18",
+        conversao: "2,8%",
+        unidades: "18",
+        precoMedio: "R$ 463,83",
       };
     }
     return {
-      visitas: "2.450",
-      compradores: "18",
-      vendas: "18",
-      conversao: "2,8%",
-      unidades: "18",
-      precoMedio: "R$ 463,83",
+      visitas: "114",
+      compradores: "2",
+      vendas: "2",
+      conversao: "1,8%",
+      unidades: "2",
+      precoMedio: "R$ 345,16",
     };
   }, [isOntem]);
 
   // Top Products:
-  // Hoje (17/out): 18 vendas somando exatamente R$ 8.348,87
-  // Ontem (16/out): 12 vendas somando exatamente R$ 2.376,97
+  // Hoje (18/out): 2 vendas somando R$ 690,32
+  // Ontem (17/out): 18 vendas somando exatamente R$ 8.348,87
   const topProducts = useMemo(() => {
     if (isOntem) {
       return [
         {
           rank: 1,
           title: "Smartphone Xiaomi Poco X7 Pro 5G 512GB",
-          salesCount: "5 vendas",
-          salesValue: "R$ 989,97",
+          salesCount: "7 vendas",
+          salesValue: "R$ 3.493,00",
           badge: "🔥",
           type: "gold-phone"
         },
         {
           rank: 2,
+          title: "Smart TV PRO 4K Ultra HD AI 55''",
+          salesCount: "4 vendas",
+          salesValue: "R$ 2.196,00",
+          badge: "🔥",
+          type: "smart-tv"
+        },
+        {
+          rank: 3,
           title: "Smartphone Motorola Edge 70 5G 256GB",
           salesCount: "3 vendas",
-          salesValue: "R$ 594,00",
+          salesValue: "R$ 1.497,00",
           badge: "📦",
           type: "red-phone"
         },
         {
-          rank: 3,
+          rank: 4,
           title: "Fritadeira Air Fryer Philco 16 Litros",
           salesCount: "2 vendas",
-          salesValue: "R$ 396,00",
+          salesValue: "R$ 649,74",
           badge: null,
           type: "earphones"
         },
         {
-          rank: 4,
+          rank: 5,
           title: "Tênis Esportivo Running Pro Air Cushion",
-          salesCount: "1 venda",
-          salesValue: "R$ 198,00",
+          salesCount: "2 vendas",
+          salesValue: "R$ 513,13",
           badge: "📦",
           type: "sneaker"
-        },
-        {
-          rank: 5,
-          title: "Smart TV PRO 4K Ultra HD AI 55''",
-          salesCount: "1 venda",
-          salesValue: "R$ 199,00",
-          badge: null,
-          type: "smart-tv"
         }
       ];
     }
-    // Hoje (17/out): 18 vendas somando R$ 8.348,87
+    // Hoje (18/out): 2 vendas somando R$ 690,32
     return [
       {
         rank: 1,
-        title: "Smartphone Xiaomi Poco X7 Pro 5G 512GB",
-        salesCount: "7 vendas",
-        salesValue: "R$ 3.493,00",
-        badge: "🔥",
-        type: "gold-phone"
-      },
-      {
-        rank: 2,
-        title: "Smart TV PRO 4K Ultra HD AI 55''",
-        salesCount: "4 vendas",
-        salesValue: "R$ 2.196,00",
-        badge: "🔥",
-        type: "smart-tv"
-      },
-      {
-        rank: 3,
-        title: "Smartphone Motorola Edge 70 5G 256GB",
-        salesCount: "3 vendas",
-        salesValue: "R$ 1.497,00",
-        badge: "📦",
-        type: "red-phone"
-      },
-      {
-        rank: 4,
         title: "Fritadeira Elétrica Forno Oven 10L Air Fryer",
         salesCount: "2 vendas",
-        salesValue: "R$ 649,74",
-        badge: null,
+        salesValue: "R$ 690,32",
+        badge: "🔥",
         type: "earphones"
       },
       {
-        rank: 5,
+        rank: 2,
+        title: "Smartphone Motorola Edge 70 5G 256GB",
+        salesCount: "0 vendas",
+        salesValue: "R$ 0,00",
+        badge: null,
+        type: "red-phone"
+      },
+      {
+        rank: 3,
+        title: "Smartphone Xiaomi Poco X7 Pro 5G 512GB",
+        salesCount: "0 vendas",
+        salesValue: "R$ 0,00",
+        badge: null,
+        type: "gold-phone"
+      },
+      {
+        rank: 4,
         title: "Tênis Esportivo Running Pro Air Cushion",
-        salesCount: "2 vendas",
-        salesValue: "R$ 513,13",
-        badge: "📦",
+        salesCount: "0 vendas",
+        salesValue: "R$ 0,00",
+        badge: null,
         type: "sneaker"
+      },
+      {
+        rank: 5,
+        title: "Smart TV PRO 4K Ultra HD AI 55''",
+        salesCount: "0 vendas",
+        salesValue: "R$ 0,00",
+        badge: null,
+        type: "smart-tv"
       }
     ];
   }, [isOntem]);
@@ -228,15 +228,14 @@ export default function MercadoLivreLiveDashboard() {
     });
   }, [hourlyData]);
 
-  // Hoje curve points (reaching R$ 8.348,87)
+  // Hoje points: live at start of day (00h00 - 02h00 with R$ 690,32)
   const liveHojePoints = useMemo(() => {
-    return hourlyData.map((d, i) => {
-      const x = (i / (hourlyData.length - 1)) * svgWidth;
-      const val = d.hoje ?? 8348.87;
-      const y = svgHeight - (val / maxVal) * (svgHeight - 20) - 10;
-      return { x, y, data: d };
-    });
-  }, [hourlyData]);
+    return [
+      { x: 0, y: svgHeight - (690.32 / maxVal) * (svgHeight - 20) - 10 },
+      { x: 45, y: svgHeight - (690.32 / maxVal) * (svgHeight - 20) - 10 },
+      { x: 90, y: svgHeight - (690.32 / maxVal) * (svgHeight - 20) - 10 },
+    ];
+  }, []);
 
   const createSmoothPath = (pts: { x: number; y: number }[]) => {
     if (pts.length < 2) return "";
@@ -260,9 +259,9 @@ export default function MercadoLivreLiveDashboard() {
   const pathOntem = useMemo(() => createSmoothPath(pointsOntem), [pointsOntem]);
   const areaOntem = useMemo(() => `${pathOntem} L ${svgWidth} ${svgHeight} L 0 ${svgHeight} Z`, [pathOntem]);
 
-  // Hoje smooth curve path reaching R$ 8.348,87
-  const pathHoje = useMemo(() => createSmoothPath(liveHojePoints), [liveHojePoints]);
-  const areaHoje = useMemo(() => `${pathHoje} L ${svgWidth} ${svgHeight} L 0 ${svgHeight} Z`, [pathHoje]);
+  // Hoje path (starts at 00:00, stays at R$ 690,32 during the initial hours of the day)
+  const pathHoje = useMemo(() => `M 0 ${liveHojePoints[0].y.toFixed(1)} L 90 ${liveHojePoints[2].y.toFixed(1)}`, [liveHojePoints]);
+  const areaHoje = useMemo(() => `M 0 ${liveHojePoints[0].y.toFixed(1)} L 90 ${liveHojePoints[2].y.toFixed(1)} L 90 ${svgHeight} L 0 ${svgHeight} Z`, [liveHojePoints]);
 
   // Handle dynamic hover tracking across the chart
   const handleChartMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -278,7 +277,7 @@ export default function MercadoLivreLiveDashboard() {
       index,
       xPercent: (index / (hourlyData.length - 1)) * 100,
       hour: point.hour,
-      hoje: point.hoje ?? 8348.87,
+      hoje: point.hoje ?? 690.32,
       ontem: point.ontem,
     });
   };
@@ -362,7 +361,7 @@ export default function MercadoLivreLiveDashboard() {
           <div className="mt-2 z-20">
             <div className="bg-[#EAEAEA] text-gray-700 text-[11.5px] sm:text-[13px] font-medium px-4 py-1 rounded-full shadow-[0_1px_3px_rgba(0,0,0,0.06)] border border-gray-300/60 inline-flex items-center gap-1.5 tracking-wide">
               <span>{isOntem ? `${ontemDateLabel} (ontem),` : `${hojeDateLabel},`}</span>
-              <span className="font-semibold text-gray-900">{isOntem ? "23 : 59 : 59" : (liveTime || "00 : 15 : 42")}</span>
+              <span className="font-semibold text-gray-900">{isOntem ? "23 : 59 : 59" : (liveTime || "02 : 01 : 45")}</span>
             </div>
           </div>
         </div>
@@ -540,12 +539,12 @@ export default function MercadoLivreLiveDashboard() {
                 Tendências em vendas brutas
               </h2>
 
-              {/* Sub-header Legend with CLICKABLE "Hoje (17/out)" and "Ontem (16/out)" buttons! */}
+              {/* Sub-header Legend with CLICKABLE "Hoje (18/out)" and "Ontem (17/out)" buttons! */}
               <div className="flex items-center justify-between mb-4 px-1 text-[12px]">
                 <span className="text-gray-500 font-medium">Vendas (R$)</span>
                 
                 <div className="flex items-center gap-2">
-                  {/* Clickable Hoje Tab (17 de outubro) */}
+                  {/* Clickable Hoje Tab (18 de outubro) */}
                   <button 
                     onClick={() => setSelectedPeriod("hoje")}
                     className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold cursor-pointer transition-all ${
@@ -555,10 +554,10 @@ export default function MercadoLivreLiveDashboard() {
                     }`}
                   >
                     <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></span>
-                    <span>Hoje (17/out) • R$ 8.348,87</span>
+                    <span>Hoje (18/out) • R$ 690,32</span>
                   </button>
 
-                  {/* Clickable Ontem Tab (16 de outubro) */}
+                  {/* Clickable Ontem Tab (17 de outubro) */}
                   <button 
                     onClick={() => setSelectedPeriod("ontem")}
                     className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold cursor-pointer transition-all ${
@@ -568,7 +567,7 @@ export default function MercadoLivreLiveDashboard() {
                     }`}
                   >
                     <span className="w-2.5 h-2.5 rounded-sm bg-[#E03B8B]"></span>
-                    <span>Ontem (16/out) • R$ 2.376,97</span>
+                    <span>Ontem (17/out) • R$ 8.348,87</span>
                   </button>
 
                   {/* Calendar Icon */}
@@ -625,7 +624,7 @@ export default function MercadoLivreLiveDashboard() {
                   </linearGradient>
                 </defs>
 
-                {/* 1. Ontem Area & Curve (16 de outubro: Pink/Magenta #E03B8B) */}
+                {/* 1. Ontem Area & Curve (17 de outubro: Pink/Magenta #E03B8B) */}
                 {selectedPeriod === "ontem" && (
                   <path
                     d={areaOntem}
@@ -642,7 +641,7 @@ export default function MercadoLivreLiveDashboard() {
                   strokeLinecap="round"
                 />
 
-                {/* 2. Hoje Area & Curve (17 de outubro: Blue #2563EB - reaching R$ 8.348,87) */}
+                {/* 2. Hoje Area & Curve (18 de outubro: Blue #2563EB - starting at R$ 690,32) */}
                 {selectedPeriod === "hoje" && (
                   <path
                     d={areaHoje}
@@ -662,15 +661,15 @@ export default function MercadoLivreLiveDashboard() {
                 {/* Live pulsing indicator dot */}
                 {!hoverData && (
                   isOntem ? (
-                    /* Pulsing dot on Ontem peak (16/out) at 16:00: R$ 2.376,97 */
+                    /* Pulsing dot on Ontem peak (17/out) at 16:00: R$ 8.348,87 */
                     <g transform={`translate(${pointsOntem[9].x}, ${pointsOntem[9].y})`}>
                       <circle r="14" fill="#E03B8B" fillOpacity="0.25" className="animate-ping" />
                       <circle r="8" fill="#E03B8B" fillOpacity="0.4" />
                       <circle r="4.5" fill="#E03B8B" stroke="#FFFFFF" strokeWidth="2" />
                     </g>
                   ) : (
-                    /* Pulsing dot on Hoje (17/out) at live peak: R$ 8.348,87 */
-                    <g transform={`translate(${liveHojePoints[12].x}, ${liveHojePoints[12].y})`}>
+                    /* Pulsing dot on Hoje (18/out) at live time: R$ 690,32 */
+                    <g transform={`translate(90, ${liveHojePoints[2].y})`}>
                       <circle r="14" fill="#2563EB" fillOpacity="0.25" className="animate-ping" />
                       <circle r="8" fill="#2563EB" fillOpacity="0.4" />
                       <circle r="4.5" fill="#2563EB" stroke="#FFFFFF" strokeWidth="2" />
@@ -701,15 +700,17 @@ export default function MercadoLivreLiveDashboard() {
                       strokeWidth="2.5" 
                     />
 
-                    {/* Point on Hoje curve */}
-                    <circle 
-                      cx={liveHojePoints[hoverData.index].x} 
-                      cy={liveHojePoints[hoverData.index].y} 
-                      r="6" 
-                      fill="#2563EB" 
-                      stroke="#FFFFFF" 
-                      strokeWidth="2.5" 
-                    />
+                    {/* Point on Hoje curve if within live hours */}
+                    {hoverData.index <= 2 && (
+                      <circle 
+                        cx={pointsOntem[hoverData.index].x} 
+                        cy={liveHojePoints[0].y} 
+                        r="6" 
+                        fill="#2563EB" 
+                        stroke="#FFFFFF" 
+                        strokeWidth="2.5" 
+                      />
+                    )}
                   </>
                 )}
               </svg>
@@ -730,16 +731,16 @@ export default function MercadoLivreLiveDashboard() {
                   <div className="flex items-center justify-between pt-0.5">
                     <span className="flex items-center gap-1.5 text-blue-300">
                       <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                      Hoje (17/out):
+                      Hoje (18/out):
                     </span>
                     <span className="font-bold text-white text-[12px]">
-                      R$ {hoverData.hoje.toFixed(2).replace(".", ",")}
+                      {hoverData.index <= 2 ? "R$ 690,32" : "Em andamento"}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5 text-pink-300">
                       <span className="w-2 h-2 rounded-sm bg-[#E03B8B]"></span>
-                      Ontem (16/out):
+                      Ontem (17/out):
                     </span>
                     <span className="font-bold text-pink-300 text-[12px]">
                       R$ {hoverData.ontem.toFixed(2).replace(".", ",")}
@@ -747,7 +748,7 @@ export default function MercadoLivreLiveDashboard() {
                   </div>
                   <div className="text-[9.5px] text-green-400 font-semibold text-right pt-0.5 flex items-center justify-end gap-1">
                     <TrendingUp className="w-3 h-3 inline" />
-                    <span>Hoje: Alta Performance</span>
+                    <span>Ontem: Lucro Consolidado</span>
                   </div>
                   <div className="w-2.5 h-2.5 bg-gray-950/95 rotate-45 mx-auto -mb-2 mt-0.5 border-r border-b border-white/10"></div>
                 </div>
@@ -757,13 +758,13 @@ export default function MercadoLivreLiveDashboard() {
                   className="absolute left-[70%] top-[25%] -translate-x-1/2 -translate-y-full bg-gray-900/95 text-white text-[11px] py-1.5 px-3 rounded-lg shadow-lg pointer-events-none z-30 flex flex-col items-center transition-all"
                 >
                   <div className="font-semibold text-yellow-300">
-                    {isOntem ? "16 de outubro (Ontem)" : "17 de outubro (Hoje ao vivo)"}
+                    {isOntem ? "17 de outubro (Ontem)" : "18 de outubro (Hoje ao vivo)"}
                   </div>
                   <div className="font-bold text-white text-[12.5px]">
                     {currentHeroValue}
                   </div>
                   <div className="text-[9.5px] text-green-400">
-                    {isOntem ? "Consolidado: 12 vendas" : "18 vendas ao vivo"}
+                    {isOntem ? "Consolidado: 18 vendas" : "2 vendas ao vivo"}
                   </div>
                   <div className="w-2 h-2 bg-gray-900/95 rotate-45 -mb-1 mt-0.5"></div>
                 </div>
@@ -781,7 +782,7 @@ export default function MercadoLivreLiveDashboard() {
                       index: i,
                       xPercent: (i / (hourlyData.length - 1)) * 100,
                       hour: d.hour,
-                      hoje: d.hoje ?? 8348.87,
+                      hoje: d.hoje ?? 690.32,
                       ontem: d.ontem,
                     })}
                   >
@@ -865,7 +866,7 @@ export default function MercadoLivreLiveDashboard() {
 
       {/* Footer Info */}
       <footer className="w-full text-center py-4 text-xs text-gray-400 border-t border-gray-200/50 bg-white/50">
-        Mercado Livre Brasil • Painel de Vendas em Tempo Real (Ao Vivo) • {isOntem ? `Ontem (${ontemDateLabel}): R$ 2.376,97` : `Hoje (${hojeDateLabel}): R$ 8.348,87`}
+        Mercado Livre Brasil • Painel de Vendas em Tempo Real (Ao Vivo) • {isOntem ? `Ontem (${ontemDateLabel}): R$ 8.348,87` : `Hoje (${hojeDateLabel}): R$ 690,32`}
       </footer>
 
     </div>
