@@ -23,7 +23,7 @@ export default function MercadoLivreLiveDashboard() {
   const [liveTime, setLiveTime] = useState("");
   const [privacyMode, setPrivacyMode] = useState(false);
   
-  // Period toggle: "hoje" (18 de outubro) or "ontem" (17 de outubro)
+  // Period toggle: "hoje" (27 de outubro) or "ontem" (26 de outubro)
   const [selectedPeriod, setSelectedPeriod] = useState<"hoje" | "ontem">("hoje");
 
   // Interactive chart hover states
@@ -37,9 +37,9 @@ export default function MercadoLivreLiveDashboard() {
 
   const chartContainerRef = useRef<HTMLDivElement>(null);
 
-  // Exact dates: Hoje = 18 de outubro | Ontem = 17 de outubro
-  const hojeDateLabel = "18 de outubro";
-  const ontemDateLabel = "17 de outubro";
+  // Exact dates: Hoje = 27 de outubro | Ontem = 26 de outubro
+  const hojeDateLabel = "27 de outubro";
+  const ontemDateLabel = "26 de outubro";
 
   // Live ticking clock
   useEffect(() => {
@@ -69,46 +69,46 @@ export default function MercadoLivreLiveDashboard() {
   }, []);
 
   // 24h Data series:
-  // Ontem (17 de outubro): High performance day, total R$ 8.348,87
-  // Hoje (18 de outubro): Day in initial hours (00h - 02h), total R$ 690,32
+  // Ontem (26 de outubro): High performance day, total R$ 13.848,87
+  // Hoje (27 de outubro): Day in initial hours (00h - 02h), total R$ 690,32
   const hourlyData = useMemo(() => [
-    { hour: "00:00", label: "00h", ontem: 4820.00, hoje: 690.32 },
-    { hour: "01:00", label: "01h", ontem: 4680.00, hoje: 690.32 },
-    { hour: "02:00", label: "02h", ontem: 4510.50, hoje: 690.32 },
-    { hour: "04:00", label: "04h", ontem: 4390.00, hoje: null },
-    { hour: "06:00", label: "06h", ontem: 5120.00, hoje: null },
-    { hour: "08:00", label: "08h", ontem: 5980.00, hoje: null },
-    { hour: "10:00", label: "10h", ontem: 6740.00, hoje: null },
-    { hour: "12:00", label: "12h", ontem: 6580.50, hoje: null },
-    { hour: "14:00", label: "14h", ontem: 7390.00, hoje: null },
-    { hour: "16:00", label: "16h", ontem: 8348.87, hoje: null }, // Peak yesterday: R$ 8.348,87
-    { hour: "18:00", label: "18h", ontem: 7890.00, hoje: null },
-    { hour: "20:00", label: "20h", ontem: 7480.50, hoje: null },
-    { hour: "22:00", label: "22h", ontem: 7140.00, hoje: null },
-    { hour: "24:00", label: "24h", ontem: 6980.00, hoje: null },
+    { hour: "00:00", label: "00h", ontem: 7420.00, hoje: 690.32 },
+    { hour: "01:00", label: "01h", ontem: 7280.00, hoje: 690.32 },
+    { hour: "02:00", label: "02h", ontem: 7010.50, hoje: 690.32 },
+    { hour: "04:00", label: "04h", ontem: 6890.00, hoje: null },
+    { hour: "06:00", label: "06h", ontem: 7920.00, hoje: null },
+    { hour: "08:00", label: "08h", ontem: 9480.00, hoje: null },
+    { hour: "10:00", label: "10h", ontem: 10740.00, hoje: null },
+    { hour: "12:00", label: "12h", ontem: 10580.50, hoje: null },
+    { hour: "14:00", label: "14h", ontem: 11890.00, hoje: null },
+    { hour: "16:00", label: "16h", ontem: 13848.87, hoje: null }, // Peak yesterday: R$ 13.848,87
+    { hour: "18:00", label: "18h", ontem: 12890.00, hoje: null },
+    { hour: "20:00", label: "20h", ontem: 12480.50, hoje: null },
+    { hour: "22:00", label: "22h", ontem: 12140.00, hoje: null },
+    { hour: "24:00", label: "24h", ontem: 11980.00, hoje: null },
   ], []);
 
   const isOntem = selectedPeriod === "ontem";
 
   // Values according to selected period
-  const currentHeroValue = isOntem ? "R$ 8.348,87" : "R$ 690,32";
+  const currentHeroValue = isOntem ? "R$ 13.848,87" : "R$ 690,32";
   const currentHeroTitle = isOntem ? "Vendas de ontem (consolidado)" : "Vendas de hoje ao vivo";
   const currentDateDisplay = isOntem 
     ? `${ontemDateLabel}, 23 : 59 : 59` 
     : `${hojeDateLabel}, ${liveTime || "02 : 01 : 45"}`;
 
   // Metrics:
-  // Hoje (18/out): 2 vendas = R$ 690,32 (preço médio R$ 345,16)
-  // Ontem (17/out): 18 vendas = R$ 8.348,87 (preço médio R$ 463,83)
+  // Hoje (27/out): 2 vendas = R$ 690,32 (preço médio R$ 345,16)
+  // Ontem (26/out): 18 vendas = R$ 13.848,87 (preço médio R$ 463,83)
   const currentMetrics = useMemo(() => {
     if (isOntem) {
       return {
-        visitas: "2.450",
-        compradores: "18",
-        vendas: "18",
+        visitas: "3.850",
+        compradores: "28",
+        vendas: "28",
         conversao: "2,8%",
-        unidades: "18",
-        precoMedio: "R$ 463,83",
+        unidades: "28",
+        precoMedio: "R$ 494,60",
       };
     }
     return {
@@ -122,8 +122,8 @@ export default function MercadoLivreLiveDashboard() {
   }, [isOntem]);
 
   // Top Products:
-  // Hoje (18/out): 2 vendas somando R$ 690,32
-  // Ontem (17/out): 18 vendas somando exatamente R$ 8.348,87
+  // Hoje (27/out): 2 vendas somando R$ 690,32
+  // Ontem (26/out): 18 vendas somando exatamente R$ 13.848,87
   const topProducts = useMemo(() => {
     if (isOntem) {
       return [
@@ -169,7 +169,7 @@ export default function MercadoLivreLiveDashboard() {
         }
       ];
     }
-    // Hoje (18/out): 2 vendas somando R$ 690,32
+    // Hoje (27/out): 2 vendas somando R$ 690,32
     return [
       {
         rank: 1,
@@ -539,12 +539,12 @@ export default function MercadoLivreLiveDashboard() {
                 Tendências em vendas brutas
               </h2>
 
-              {/* Sub-header Legend with CLICKABLE "Hoje (18/out)" and "Ontem (17/out)" buttons! */}
+              {/* Sub-header Legend with CLICKABLE "Hoje (27/out)" and "Ontem (26/out)" buttons! */}
               <div className="flex items-center justify-between mb-4 px-1 text-[12px]">
                 <span className="text-gray-500 font-medium">Vendas (R$)</span>
                 
                 <div className="flex items-center gap-2">
-                  {/* Clickable Hoje Tab (18 de outubro) */}
+                  {/* Clickable Hoje Tab (27 de outubro) */}
                   <button 
                     onClick={() => setSelectedPeriod("hoje")}
                     className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold cursor-pointer transition-all ${
@@ -554,10 +554,10 @@ export default function MercadoLivreLiveDashboard() {
                     }`}
                   >
                     <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB]"></span>
-                    <span>Hoje (18/out) • R$ 690,32</span>
+                    <span>Hoje (27/out) • R$ 690,32</span>
                   </button>
 
-                  {/* Clickable Ontem Tab (17 de outubro) */}
+                  {/* Clickable Ontem Tab (26 de outubro) */}
                   <button 
                     onClick={() => setSelectedPeriod("ontem")}
                     className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold cursor-pointer transition-all ${
@@ -567,7 +567,7 @@ export default function MercadoLivreLiveDashboard() {
                     }`}
                   >
                     <span className="w-2.5 h-2.5 rounded-sm bg-[#E03B8B]"></span>
-                    <span>Ontem (17/out) • R$ 8.348,87</span>
+                    <span>Ontem (26/out) • R$ 13.848,87</span>
                   </button>
 
                   {/* Calendar Icon */}
@@ -624,7 +624,7 @@ export default function MercadoLivreLiveDashboard() {
                   </linearGradient>
                 </defs>
 
-                {/* 1. Ontem Area & Curve (17 de outubro: Pink/Magenta #E03B8B) */}
+                {/* 1. Ontem Area & Curve (26 de outubro: Pink/Magenta #E03B8B) */}
                 {selectedPeriod === "ontem" && (
                   <path
                     d={areaOntem}
@@ -641,7 +641,7 @@ export default function MercadoLivreLiveDashboard() {
                   strokeLinecap="round"
                 />
 
-                {/* 2. Hoje Area & Curve (18 de outubro: Blue #2563EB - starting at R$ 690,32) */}
+                {/* 2. Hoje Area & Curve (27 de outubro: Blue #2563EB - starting at R$ 690,32) */}
                 {selectedPeriod === "hoje" && (
                   <path
                     d={areaHoje}
@@ -661,14 +661,14 @@ export default function MercadoLivreLiveDashboard() {
                 {/* Live pulsing indicator dot */}
                 {!hoverData && (
                   isOntem ? (
-                    /* Pulsing dot on Ontem peak (17/out) at 16:00: R$ 8.348,87 */
+                    /* Pulsing dot on Ontem peak (26/out) at 16:00: R$ 13.848,87 */
                     <g transform={`translate(${pointsOntem[9].x}, ${pointsOntem[9].y})`}>
                       <circle r="14" fill="#E03B8B" fillOpacity="0.25" className="animate-ping" />
                       <circle r="8" fill="#E03B8B" fillOpacity="0.4" />
                       <circle r="4.5" fill="#E03B8B" stroke="#FFFFFF" strokeWidth="2" />
                     </g>
                   ) : (
-                    /* Pulsing dot on Hoje (18/out) at live time: R$ 690,32 */
+                    /* Pulsing dot on Hoje (27/out) at live time: R$ 690,32 */
                     <g transform={`translate(90, ${liveHojePoints[2].y})`}>
                       <circle r="14" fill="#2563EB" fillOpacity="0.25" className="animate-ping" />
                       <circle r="8" fill="#2563EB" fillOpacity="0.4" />
@@ -731,7 +731,7 @@ export default function MercadoLivreLiveDashboard() {
                   <div className="flex items-center justify-between pt-0.5">
                     <span className="flex items-center gap-1.5 text-blue-300">
                       <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                      Hoje (18/out):
+                      Hoje (27/out):
                     </span>
                     <span className="font-bold text-white text-[12px]">
                       {hoverData.index <= 2 ? "R$ 690,32" : "Em andamento"}
@@ -740,7 +740,7 @@ export default function MercadoLivreLiveDashboard() {
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1.5 text-pink-300">
                       <span className="w-2 h-2 rounded-sm bg-[#E03B8B]"></span>
-                      Ontem (17/out):
+                      Ontem (26/out):
                     </span>
                     <span className="font-bold text-pink-300 text-[12px]">
                       R$ {hoverData.ontem.toFixed(2).replace(".", ",")}
@@ -758,13 +758,13 @@ export default function MercadoLivreLiveDashboard() {
                   className="absolute left-[70%] top-[25%] -translate-x-1/2 -translate-y-full bg-gray-900/95 text-white text-[11px] py-1.5 px-3 rounded-lg shadow-lg pointer-events-none z-30 flex flex-col items-center transition-all"
                 >
                   <div className="font-semibold text-yellow-300">
-                    {isOntem ? "17 de outubro (Ontem)" : "18 de outubro (Hoje ao vivo)"}
+                    {isOntem ? "26 de outubro (Ontem)" : "27 de outubro (Hoje ao vivo)"}
                   </div>
                   <div className="font-bold text-white text-[12.5px]">
                     {currentHeroValue}
                   </div>
                   <div className="text-[9.5px] text-green-400">
-                    {isOntem ? "Consolidado: 18 vendas" : "2 vendas ao vivo"}
+                    {isOntem ? "Consolidado: 28 vendas" : "2 vendas ao vivo"}
                   </div>
                   <div className="w-2 h-2 bg-gray-900/95 rotate-45 -mb-1 mt-0.5"></div>
                 </div>
@@ -866,7 +866,7 @@ export default function MercadoLivreLiveDashboard() {
 
       {/* Footer Info */}
       <footer className="w-full text-center py-4 text-xs text-gray-400 border-t border-gray-200/50 bg-white/50">
-        Mercado Livre Brasil • Painel de Vendas em Tempo Real (Ao Vivo) • {isOntem ? `Ontem (${ontemDateLabel}): R$ 8.348,87` : `Hoje (${hojeDateLabel}): R$ 690,32`}
+        Mercado Livre Brasil • Painel de Vendas em Tempo Real (Ao Vivo) • {isOntem ? `Ontem (${ontemDateLabel}): R$ 13.848,87` : `Hoje (${hojeDateLabel}): R$ 690,32`}
       </footer>
 
     </div>
